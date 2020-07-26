@@ -1,0 +1,14 @@
+version: "3"
+services:
+  server:
+    image: jetbrains/teamcity-server
+    ports:
+      - "8111:8111"
+    volumes:
+      - ./teamcity/data:C:/ProgramData/JetBrains/TeamCity
+      - ./teamcity/logs:C:/TeamCity/logs
+  agent:
+    image: jetbrains/teamcity-agent
+    environment:
+      - SERVER_URL=http://192.168.0.101:8111
+      - TEAMCITY_SERVER_MEM_OPTS=-Xmx2g -XX:ReservedCodeCacheSize=35
